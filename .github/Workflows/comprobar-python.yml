@@ -1,0 +1,13 @@
+name: Comprobar Python
+
+on:
+    push:
+
+jobs:
+    verificar:
+        runs-on: ubuntu-lastest
+
+        steps:
+
+            -name: Obtener repositorio 
+             uses: actions/checkout@v7
