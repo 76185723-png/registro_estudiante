@@ -1,48 +1,55 @@
-# nombre del workflow
-name: Comprobar Python
+# Nombre que tendrá el workflow dentro de GitHub Actions
+name: Comprobar programa Python
 
-#el evento se ejecutara cada vez que se realice un push
+# Evento que iniciará automáticamente el workflow
+# En este caso se ejecutará cada vez que se realice un push
 on:
-    push:
+  push:
 
-# aqui definimos los trabajos que se ejecutaran github actions
+# Aquí se definen los trabajos que ejecutará GitHub Actions
 jobs:
+
+  # Nombre interno del primer trabajo
   verificar:
-       #sistema operativo donde se ejecutara el trabajo
-       runs-on: ubuntu-lastest
 
-       steps:
-           # PASO 1
-           # descargar dentro del runner el contenido del repositorio
-           -  name: Obtener repositorio 
-              uses: actions/checkout@v7
+    # Sistema operativo donde se ejecutará el trabajo
+    runs-on: ubuntu-latest
 
-           # PASO 2
-           # preparar python dentro del entorno de ejecucion
-           - name: Configurar Python
-             uses: actions/setup-python@v7
-             with:
-           # version de python a utilizara el trabajo
-             python-version: '3.14'
+    # Lista de pasos que realizará el trabajo
+    steps:
 
-           # PASO 3
-           # comprobar que programa.py existe dentro del repositorio
-           - name: Verificar archivo
-             run: test -f programa.py
-            
-           # PASO 4
-           # comprobar que programa.py no tenga errores de sintaxis
-           - name: Verificar sintaxis
-             run: python -m py_compile programa.py
+      # PASO 1
+      # Descargar dentro del runner el contenido del repositorio
+      - name: Obtener repositorio
+        uses: actions/checkout@v7
 
-           # PASO 5
-           # ejecutar el programa
-           - name: Ejecutar programa
-             run: python programa.py
+      # PASO 2
+      # Preparar Python dentro del entorno de ejecución
+      - name: Configurar Python
+        uses: actions/setup-python@v7
+        with:
+          # Versión de Python que utilizará este trabajo
+          python-version: '3.14'
 
-          # PASO 6
-          # guardamos la salida y comprobams que el resultado sea 24
-           - name: Comprobar resultado esperado
-             run: |
-             python programa.py > salida.txt
-             grep "TOTAL: 24" salida.txt
+      # PASO 3
+      # Comprobar que programa.py existe dentro del repositorio
+      - name: Verificar archivo
+        run: test -f programa.py
+
+      # PASO 4
+      # Comprobar que programa.py no tenga errores de sintaxis
+      - name: Verificar sintaxis
+        run: python -m py_compile programa.py
+
+      # PASO 5
+      # Ejecutar realmente el programa
+      - name: Ejecutar programa
+        run: python programa.py
+
+      # PASO 6
+      # Guardar la salida del programa y comprobar
+      # que contenga el resultado TOTAL: 24
+      - name: Comprobar resultado esperado
+        run: |
+          python programa.py > salida.txt
+          grep "TOTAL: 24" salida.txt
