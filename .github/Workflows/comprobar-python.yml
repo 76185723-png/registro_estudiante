@@ -8,40 +8,41 @@ on:
 # aqui definimos los trabajos que se ejecutaran github actions
 jobs:
   verificar:
-    #sistema operativo donde se ejecutara el trabajo
-    runs-on: ubuntu-lastest
+       #sistema operativo donde se ejecutara el trabajo
+       runs-on: ubuntu-lastest
 
-    steps:
-      # PASO 1
-      # descargar dentro del runner el contenido del repositorio
-      -  name: Obtener repositorio 
-         uses: actions/checkout@v7
+       steps:
+           # PASO 1
+           # descargar dentro del runner el contenido del repositorio
+           -  name: Obtener repositorio 
+              uses: actions/checkout@v7
 
-      # PASO 2
-      # preparar python dentro del entorno de ejecucion
-      - name: Configurar Python
-        uses: actions/setup-python@v7
-        with:
-      # version de python a utilizara el trabajo
-         python-version: '3.14'
+           # PASO 2
+           # preparar python dentro del entorno de ejecucion
+           - name: Configurar Python
+             uses: actions/setup-python@v7
+             with:
+           # version de python a utilizara el trabajo
+             python-version: '3.14'
 
-      # PASO 3
-      # comprobar que programa.py existe dentro del repositorio
-      - name: Verificar archivo
-        run: test -f programa.py
+           # PASO 3
+           # comprobar que programa.py existe dentro del repositorio
+           - name: Verificar archivo
+             run: test -f programa.py
             
-      # PASO 4
-      # comprobar que programa.py no tenga errores de sintaxis
-      - name: Verificar sintaxis
-        run: python -m py_compile programa.py
+           # PASO 4
+           # comprobar que programa.py no tenga errores de sintaxis
+           - name: Verificar sintaxis
+             run: python -m py_compile programa.py
 
-     # PASO 5
-        # ejecutar el programa
-     - name: Ejecutar programa
-        run: python programa.py
-     # PASO 6
-     # guardamos la salida y comprobams que el resultado sea 24
-     - name: Comprobar resultado esperado
-       run: |
-         python programa.py > salida.txt
-         grep "TOTAL: 24" salida.txt
+           # PASO 5
+           # ejecutar el programa
+           - name: Ejecutar programa
+             run: python programa.py
+
+          # PASO 6
+          # guardamos la salida y comprobams que el resultado sea 24
+           - name: Comprobar resultado esperado
+             run: |
+             python programa.py > salida.txt
+             grep "TOTAL: 24" salida.txt
